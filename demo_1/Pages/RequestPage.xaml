@@ -1,0 +1,161 @@
+﻿<Page x:Class="demo_1.Pages.RequestPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:demo_1.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="850" d:DesignWidth="1200"
+      Title="Информация о заявке">
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel Grid.Column="1">
+            <Label Content="ФИО клиента:"></Label>
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Orientation="Horizontal">
+                <TextBlock Margin="5" Grid.Column="1" Name="TextBlock_ClientName" ></TextBlock>
+                <TextBlock Margin="5" Grid.Column="1" Name="TextBlock_ClientSurname" ></TextBlock>
+                <TextBlock Margin="5" Grid.Column="1" Name="TextBlock_ClientPatronymic" ></TextBlock>
+            </StackPanel>
+        </StackPanel>
+        
+        
+        <StackPanel Grid.Row="1">
+            <Label Content="Исполнители:"></Label>
+            <ListBox Name="ListBox_Employees" d:ItemsSource="{d:SampleData ItemCount=5}">
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="0.5" BorderBrush="Black">
+                            <Grid Name="Grid_Employee">
+                                <Grid.ContextMenu>
+                                    <ContextMenu Name="ContextMenu_Employees">
+                                        <MenuItem Name="MenuItem_DeleteEmployee" Header="Удалить работника" Click="MenuItem_DeleteEmployee_Click">
+
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </Grid.ContextMenu>
+                                <TextBlock Margin="5" Name="TextBox_EmployeeFIO" Text="{Binding Employee.EmployeeFIO}"></TextBlock>
+                            </Grid>
+                        </Border>
+                        
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Name="Button_AddEmployee" Content="Добавить работника" Margin="5" Click="Button_AddEmployee_Click"></Button>
+
+
+            <Label Content="Оборудование:"></Label>
+            <ListBox Name="ListBox_Equipment" Height="300" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="0.5" BorderBrush="Black">
+                            <Grid Name="Grid_Equipment">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ContextMenu>
+                                    <ContextMenu Name="ContextMenu_Equipment">
+                                        <MenuItem Name="MenuItem_DeleteEquipment" Header="Удалить оборудование" Click="MenuItem_DeleteEquipment_Click">
+
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </Grid.ContextMenu>
+                                <TextBlock Margin="5" Name="TextBox_EquipmentName" Text="{Binding StringFormat=Наименовение: {0}, Path = Equipment.EquipmentName}"></TextBlock>
+                                <TextBlock Grid.Row="1" Margin="5" Name="TextBox_EquipmentDefectType" Text="{Binding  StringFormat=Тип дефекта: {0}, Path = Equipment.DefectType.DefectName}"></TextBlock>
+                                <TextBlock Grid.Row="2" Margin="5" Name="TextBox_SerialNumber" Text="{Binding  StringFormat=Серийный номер: {0}, Path= Equipment.EquipmentSerialNumber}"></TextBlock>
+
+
+                            </Grid>
+                        </Border>
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Button Name="Button_AddEquipment" Content="Добавить оборудование" Margin="5" Click="Button_AddEquipment_Click" ></Button>
+
+        </StackPanel>
+        
+        
+        <TextBlock Name="TextBlock_RequestDate" Grid.Column="2" TextWrapping="Wrap"></TextBlock>
+
+        <StackPanel Grid.Column="2" Grid.Row="1">
+            <Label Content="Статус заявки"></Label>
+            <ComboBox Name="ComboBox_RequestStatus"  SelectedValuePath="StatusId" DisplayMemberPath="StatusName"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5" Padding="10" SelectionChanged="ComboBox_RequestStatus_SelectionChanged">
+
+            </ComboBox>
+            <Label Content="История изменения статуса"></Label>
+            <ListBox Margin="5" x:Name="ListBox_StatusInfo" MaxHeight="500" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="1"> 
+                        <Grid Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+
+                                <TextBlock Name="TextBlock_Date" Text="{Binding ChangeDate}"></TextBlock>
+                                <TextBlock Grid.Row="1" Name="TextBlock_StatusName" Text="{Binding Status.StatusName}"></TextBlock>
+                            
+                        </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            
+        </StackPanel>
+
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <Label Content="Описание:"></Label>
+            <TextBox Margin="5" Name="TextBox_Description" TextWrapping="Wrap" TextChanged="TextBox_Description_TextChanged"></TextBox>
+
+
+            <Label Content="Комментарии:"></Label>
+            <ListBox Margin="5" Name="ListBox_Comments" d:ItemsSource="{d:SampleData ItemCount=5}" Height="300" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock Name="TextBlock_SingleComment" Text="{Binding CommentContent}" TextWrapping="Wrap"></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <TextBox Name="TextBox_Comment" Margin="5" Padding="5" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Text="{Binding StringFormat=Описание: {0}, Path=RequestDescription}" TextWrapping="Wrap"></TextBox>
+            <Button Name="Button_SendComment" Content="Отправить комментарий" Padding="5" Margin="5" Click="Button_SendComment_Click"></Button>
+        </StackPanel>
+
+        <Button Name="Button_Back" Margin="5,20,5,20" Content="Назад" Click="Button_Click" ></Button>
+    </Grid>
+</Page>

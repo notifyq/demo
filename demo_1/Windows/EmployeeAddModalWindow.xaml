@@ -1,0 +1,30 @@
+﻿<Window x:Class="demo_1.Windows.EmployeeAddModalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:demo_1.Windows"
+        mc:Ignorable="d"
+        Title="Добавление работника" Height="450" Width="800">
+    <Grid>
+        <Label Content="Работники:"></Label>
+        <ListBox Name="ListBox_Employees" d:ItemsSource="{d:SampleData ItemCount=5}">
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="0.5" BorderBrush="Black">
+                        <Grid MouseDown="Grid_MouseDown">
+                            <TextBlock Margin="5" Name="TextBox_EmployeeFIO" Text="{Binding EmployeeFIO}"></TextBlock>
+                        </Grid>
+                    </Border>
+
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>

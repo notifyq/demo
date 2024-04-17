@@ -1,0 +1,22 @@
+﻿<Window x:Class="demo_1.Windows.EquipmentAddModalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:demo_1.Windows"
+        mc:Ignorable="d"
+        Title="Добавление оборудования" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <Label Content="Название оборудования"></Label>
+            <TextBox Name="TextBox_EquipmentName"></TextBox>
+            <Label Content="Серийный номер "></Label>
+            <TextBox Name="TextBox_EquipmentSerialNumber"></TextBox>
+            <Label Content="Тип дефекта"></Label>
+            <ComboBox Name="ComboBox_DefectType" SelectedValuePath="DefectTypeId" DisplayMemberPath="DefectName">
+                
+            </ComboBox>
+            <Button Margin="10" Name="Button_Add" Content="Добавить" Click="Button_Add_Click"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
